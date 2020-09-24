@@ -1,0 +1,320 @@
+@-moz-document domain("youtube.com") {
+/* 
+    Improved Polymer Youtube - stylesheet to make YouTube look more like its old design
+    Copyright (C) 2020 u/--xe
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+*/
+
+
+/* Make masthead less obnoxiously large */
+:root {
+    --ytd-masthead-height: 40px;
+}
+ytd-masthead {
+    border-bottom: 1px solid #ccc;
+    height: 40px;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+ytd-masthead[dark] {
+    border-bottom: none;
+}
+ytd-masthead #container.ytd-masthead {
+    height: 40px;
+}
+/* Left-align the search bar */
+ytd-masthead #container.ytd-masthead #start.ytd-masthead {
+    width: calc(var(--ytd-app-drawer-width, 230px) - 16px);
+}
+ytd-masthead #container.ytd-masthead #center.ytd-masthead {
+    flex: 1;
+    align-items: flex-start;
+}
+ytd-masthead #container.ytd-masthead #center ytd-searchbox {
+    display: contents;
+}
+ytd-masthead #container.ytd-masthead #center ytd-searchbox #search-form.ytd-searchbox {
+    max-width: 700px;
+}
+/* Make the search bar slightly smaller */
+#container.ytd-searchbox {
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Fix margin on main page */
+#contents.ytd-rich-grid-renderer {
+    padding-top: 12px;
+    padding-left: 12px;
+    padding-right: 12px;
+}
+
+/* Grey background & make sidebar same size as old site */
+ytd-app {
+    background: #f1f1f1;
+    --app-drawer-width: 230px;
+}
+
+/* Add borders around videos on main page */
+ytd-rich-grid-renderer {
+    position: relative;
+}
+ytd-rich-grid-renderer::before {
+    content: '';
+    position: absolute;
+    left: 16px;
+    right: 48px;
+    top: 24px;
+    bottom: 6px;
+    
+    background: white;
+    border: 1px solid #ccc;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+ytd-rich-grid-renderer > *:not(#chips) {
+    position: relative;
+    z-index: 1;
+}
+
+/* Remove the community posts section
+ * If you want it back, comment out this rule.
+ */
+ytd-rich-section-renderer {
+    display: none;
+}
+
+/* Shrink the chip bar and remove the mobiliness from it
+ * Well, mostly. I couldn't do anything about the dumb
+ * "scroll bar" where you have to click the buttons to get
+ * it to scoll and the wheel doesn't work. */
+ytd-rich-grid-renderer #chips.ytd-rich-grid-renderer {
+    margin-bottom: 28px;
+}
+ytd-feed-filter-chip-bar-renderer {
+    height: 28px !important;
+    background: none;
+    border: none;
+    top: 0 !important; /* Fix it breaking when ytd-rich-grid-renderer is position: relative */
+}
+#chips-wrapper.ytd-feed-filter-chip-bar-renderer {
+    display: contents;
+}
+yt-chip-cloud-chip-renderer {
+    margin-top: 4px !important;
+    margin-bottom: 0 !important;
+    height: 100%;
+    border-radius: 2px;
+}
+/* Make it not sticky */
+ytd-feed-filter-chip-bar-renderer.ytd-rich-grid-renderer {
+    position: absolute;
+}
+
+/* add borders to the sidebars */
+app-drawer, ytd-mini-guide-renderer {
+    border-right: 1px solid #ccc;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+/* Fix the mini sidebar being on top of the header for some reason
+ * It only overlaps by 1px, but this causes it to cover the border */
+ytd-mini-guide-renderer {
+    z-index: 1900;
+}
+/* Make the sidebar items smaller */
+ytd-guide-section-renderer {
+    --paper-item-min-height: 28px;
+}
+html:not(.style-scope) {
+    --ytd-user-comment_-_font-size: 13px;
+    --ytd-user-comment_-_line-height: normal;
+}
+ytd-guide-entry-renderer[active] .title.ytd-guide-entry-renderer {
+    font-size: 13px;
+    font-weight: normal;
+}
+/* Reduce the amount of whitespace above "Recommended" and make it smaller */
+ytd-rich-grid-renderer #grid-title.ytd-rich-grid-renderer {
+    margin-top: 16px;
+    margin-left: 4px;
+}
+ytd-rich-grid-renderer #grid-title.ytd-rich-grid-renderer #title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+}
+/* Reduce the video tiles to a reasonable size, which in this case is 3/5ths of
+ * the original size. I tried 1/2, but it's just a little too small. */
+ytd-rich-item-renderer {
+	margin-left: calc(var(--ytd-rich-grid-item-margin) / 4);
+	margin-right: calc(var(--ytd-rich-grid-item-margin) / 4);
+	margin-bottom: 40px;
+	width: calc( 100% / (5*var(--ytd-rich-grid-items-per-row)/3) - (5*var(--ytd-rich-grid-item-margin)/3) - 0.01px );
+}
+/* Remove excess whitespace around misc section headers */
+ytd-rich-shelf-renderer #rich-shelf-header {
+    margin-top: 8px !important;
+    margin-bottom: 8px !important;
+    margin-left: 4px !important;
+}
+ytd-rich-shelf-renderer #rich-shelf-header #title {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 18px;
+}
+
+/* Decided to leave the posts at their original size */
+ytd-rich-item-renderer[is-post] {
+	width: calc( 100% / var(--ytd-rich-grid-posts-per-row) - (5*var(--ytd-rich-grid-item-margin)/3) - 0.01px );
+}
+/* Remove avatars from the video tiles. */
+ytd-rich-item-renderer a#avatar-link {
+    display: none;
+}
+/* Remove whitespace around video title in tiles */
+h3.ytd-rich-item-renderer, h3.ytd-grid-item-renderer {
+    margin: 0;
+    margin-bottom: 2px;
+}
+/* Restyle video titles */
+#video-title.ytd-rich-grid-media {
+    font-size: 13px !important;
+    font-weight: 500 !important;
+    color: #167ac6 !important;
+    line-height: 16.9px !important;
+}
+h3.ytd-rich-grid-media {
+    margin-top: 0;
+}
+#video-title.ytd-rich-grid-media:hover {
+    text-decoration: underline !important;
+}
+#metadata yt-formatted-string.ytd-channel-name * {
+    font-size: 11px;
+    line-height: 14.3px;
+}
+#metadata yt-formatted-string.ytd-channel-name *:hover {
+    text-decoration: underline !important;
+    color: #167ac6 !important;
+}
+#metadata #metadata-line * {
+    font-size: 11px;
+    line-height: 14.3px;
+}
+ytd-grid-item-renderer #video-title.yt-simple-endpoint.ytd-grid-item-renderer {
+    max-height: 33.8px;
+}
+
+/* Add borders and drop shadows around the "Up next" box */
+ytd-watch-flexy:not([theater]):not([fullscreen]) #secondary.ytd-watch-flexy {
+	margin-top: var(--ytd-margin-6x);
+}
+ytd-watch-flexy[theater]:not([fullscreen]) #secondary.ytd-watch-flexy {
+	margin-top: 8px;
+}
+ytd-watch-flexy[flexy_] #secondary.ytd-watch-flexy {
+	margin-right: var(--ytd-margin-6x);
+	width: var(--ytd-watch-flexy-sidebar-width);
+    padding: 8px !important;
+    box-sizing: border-box;
+	min-width: var(--ytd-watch-flexy-sidebar-min-width);
+    border: 1px solid #ccc;
+    background: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Try to add borders and drop shadows around the video description.
+ * In Polyemer Youtube, the stuff we want to put a box around isn't
+ * in a box, so we need to carefully apply borders and box-shadows to
+ * each element, making shure that their edges are flush so it looks
+ * like a seamless border. clip-path is necessary to avoid creating a
+ * thin grey line along the seams, which would be caused by the shadows. */
+ytd-watch-flexy #columns #primary-inner > #info {
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #ccc !important;
+}
+ytd-watch-flexy #columns #primary-inner {
+    /* In the default layout, there's a gap after the #info element.
+     * I can't figure out where it's coming from, so make the whole container
+     * a flexbox to nuke it from orbit. */
+    display: flex;
+    flex-direction: column;
+}
+ytd-watch-flexy #columns #primary-inner > #info, ytd-watch-flexy #columns #primary-inner > #meta, ytd-watch-flexy #columns #primary-inner > #ticket-shelf, ytd-watch-flexy #columns #primary-inner > #merch-shelf, ytd-comments {
+    padding-left: 8px;
+    padding-right: 8px;
+    border: 1px solid #ccc;
+    background: white;
+    box-shadow: 0 0 4px 0 rgba(0, 0, 0, 0.1);
+    clip-path: inset(0px -5px 0px -5px);
+    border-bottom: none;
+    border-top: none;
+}
+ytd-comments {
+    border-bottom: 1px solid #ccc !important;
+    
+}
+ytd-watch-flexy #columns #primary-inner > #info ytd-video-primary-info-renderer {
+    padding-top: 0;
+}
+/* Move the channel header over so it lines up with the sidebar now that
+ * the sidebar has gotten 10px thinner */
+ytd-app[guide-persistent-and-visible] ytd-page-manager.ytd-app {
+	margin-left: 230px;
+}
+/* Make sure the channel header is under the mini sidebar */
+#header.ytd-browse {
+    z-index: 1899;
+}
+
+/* Remove border and excess margin around avatars & icons in the sidebar */
+yt-img-shadow {
+    border-radius: 0 !important;
+}
+yt-img-shadow.ytd-guide-entry-renderer, .guide-icon.ytd-guide-entry-renderer {
+    margin-right: 12px;
+}
+
+/* Try to make the search results line up with the search bar */
+body > .gstl_50.sbdd_a {
+    top: 36px !important;
+    z-index: 31337;
+}
+
+/* Make likes/dislikes red & green, like God intended */
+#container.ytd-sentiment-bar-renderer {
+    background-color: var(--paper-red-500);
+}
+#like-bar.ytd-sentiment-bar-renderer {
+    background-color: var(--google-green-500);
+}
+/* Make it obvious the toggle button can be interacted with */
+paper-toggle-button {
+    cursor: pointer;
+}
+/* Remove the awful effect on the channel page header that makes it
+ * stutter in a highly distracting fashion when scrolling. */
+ytd-browse[page-subtype=channels] app-header {
+    transform: unset !important;
+    position: static !important;
+    margin-top: 0 !important;
+}
+ytd-browse[page-subtype=channels] #contentContainer.app-header-layout {
+    display: none;
+}
+
+ytd-browse[page-subtype=channels] app-header #background.app-header * {
+    transform: unset !important;
+}
+}
