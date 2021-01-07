@@ -39,7 +39,6 @@ ytd-masthead #container.ytd-masthead #start.ytd-masthead {
 }
 ytd-masthead #container.ytd-masthead #center.ytd-masthead {
     flex: 1;
-    align-items: flex-start;
 }
 ytd-masthead #container.ytd-masthead #center ytd-searchbox {
     display: contents;
