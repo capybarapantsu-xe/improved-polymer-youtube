@@ -316,4 +316,9 @@ ytd-browse[page-subtype=channels] #contentContainer.app-header-layout {
 ytd-browse[page-subtype=channels] app-header #background.app-header * {
     transform: unset !important;
 }
+
+/* Fix crushed thumbnail on first search result */
+ytd-search ytd-video-renderer[is-post-compact-video] ytd-thumbnail.ytd-video-renderer {
+    height: unset;
+}
 }
